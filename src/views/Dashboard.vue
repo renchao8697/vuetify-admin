@@ -1,12 +1,14 @@
 <template>
-  <router-view />
+  <h1>Dashboard</h1>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
-  name: 'App'
+  name: 'Dashboard',
+  components: {
+  }
 })
 export default class extends Vue {
 }
