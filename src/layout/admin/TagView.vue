@@ -4,21 +4,20 @@
     max-width="100%"
     elevation="4"
   >
-    <v-slide-group mandatory show-arrows>
+    <v-slide-group show-arrows>
       <v-slide-item
-        v-for="n in 20"
-        :key="n"
-        v-slot:default="{ active, toggle }"
+        v-for="tab in visitedViews"
+        :key="tab.path"
       >
         <v-btn
           class="mx-1"
-          :input-value="active"
           active-class="primary white--text"
           depressed
           small
-          @click="toggle"
+          :to="tab.path"
         >
-          Options {{ n }}
+          {{tab.meta.text}}
+          <v-icon v-if="!tab.meta.affix" top right dark x-small title="关闭">mdi-close</v-icon>
         </v-btn>
       </v-slide-item>
     </v-slide-group>
@@ -26,13 +25,67 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+// import path from 'path'
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import { RouteConfig } from 'vue-router'
+import { TagsViewModule, ITagView } from '@/store/modules/tags-view'
+import { layoutRoutes } from '@/router/index'
 
 @Component({
   name: 'TagView'
 })
 export default class extends Vue {
+  private affixTags: ITagView[] = []
 
+  get visitedViews () {
+    return TagsViewModule.visitedViews
+  }
+
+  get routes () {
+    return layoutRoutes
+  }
+
+  @Watch('$route')
+  private onRouteChange () {
+    this.addTags()
+  }
+
+  mounted () {
+    this.initTags()
+    this.addTags()
+  }
+
+  private filterAffixTags (routes: RouteConfig[]): ITagView[] {
+    const tags: ITagView[] = []
+    routes.forEach(route => {
+      if (route.meta?.affix) {
+        const tagPath = route.path
+        tags.push({
+          fullPath: tagPath,
+          path: tagPath,
+          name: route.name,
+          meta: { ...route.meta }
+        })
+      }
+    })
+    return tags
+  }
+
+  private initTags () {
+    this.affixTags = this.filterAffixTags(this.routes)
+    for (const tag of this.affixTags) {
+      if (tag.name) {
+        TagsViewModule.addVisitedView(tag)
+      }
+    }
+  }
+
+  private addTags () {
+    const { name } = this.$route
+    if (name) {
+      TagsViewModule.addView(this.$route)
+    }
+  }
 }
 </script>
 

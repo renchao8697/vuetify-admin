@@ -45,7 +45,9 @@ export const layoutRoutes = [
     component: () => import('@/views/Dashboard.vue'),
     meta: {
       icon: 'mdi-palette',
-      text: 'Dashboard'
+      text: 'Dashboard',
+      tagView: true,
+      affix: true
     }
   },
   {
@@ -53,7 +55,8 @@ export const layoutRoutes = [
     path: '/charts',
     meta: {
       icon: 'mdi-chart-timeline-variant',
-      text: 'Charts'
+      text: 'Charts',
+      tagView: true
     },
     component: () => import('@/views/Charts.vue')
   },
@@ -62,7 +65,8 @@ export const layoutRoutes = [
     path: 'multiple',
     meta: {
       icon: 'mdi-menu',
-      text: 'Multiple Menu'
+      text: 'Multiple Menu',
+      tagView: true
     },
     component: () => import('@/views/multiple/index.vue'),
     children: [
@@ -70,7 +74,8 @@ export const layoutRoutes = [
         name: 'SecondMenu',
         path: '/multiple/second-menu',
         meta: {
-          text: 'SecondMenu'
+          text: 'SecondMenu',
+          tagView: true
         },
         component: () => import('@/views/multiple/SecondMenu.vue')
       },
@@ -78,7 +83,8 @@ export const layoutRoutes = [
         name: 'ThirdMenu',
         path: '/multiple/third-menu',
         meta: {
-          text: 'ThirdMenu'
+          text: 'ThirdMenu',
+          tagView: true
         },
         component: () => import('@/views/multiple/ThirdMenu.vue')
       }

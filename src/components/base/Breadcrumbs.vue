@@ -10,7 +10,7 @@ type breadcrumb = {
   exact: boolean;
   href: string;
   link: boolean;
-  text: string | number;
+  title: string | number;
   to: string | object;
 }
 
