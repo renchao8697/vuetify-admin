@@ -14,6 +14,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    '@typescript-eslint/interface-name-prefix': 0
+    '@typescript-eslint/interface-name-prefix': 0,
+    '@typescript-eslint/member-delimiter-style': 0
   }
 }

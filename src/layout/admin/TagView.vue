@@ -17,7 +17,15 @@
           :to="tab.path"
         >
           {{tab.meta.text}}
-          <v-icon v-if="!tab.meta.affix" top right dark x-small title="关闭">mdi-close</v-icon>
+          <v-icon
+            v-if="!tab.meta.affix"
+            top
+            right
+            dark
+            x-small
+            title="关闭"
+            v-text="'mdi-close'"
+          />
         </v-btn>
       </v-slide-item>
     </v-slide-group>

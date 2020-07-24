@@ -1,5 +1,8 @@
 <template>
-  <h1>Dashboard</h1>
+  <div>
+    <h1>Dashboard</h1>
+    <input type="text">
+  </div>
 </template>
 
 <script lang="ts">
