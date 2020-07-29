@@ -1,48 +1,16 @@
-// import Vue from 'vue'
-// import VueRouter, { RouteConfig } from 'vue-router'
-// import Home from '../views/Home.vue'
-
-// Vue.use(VueRouter)
-
-// const routes: Array<RouteConfig> = [
-//   {
-//     path: '/',
-//     name: 'Home',
-//     component: Home
-//   },
-//   {
-//     path: '/about',
-//     name: 'About',
-//     // route level code-splitting
-//     // this generates a separate chunk (about.[hash].js) for this route
-//     // which is lazy-loaded when the route is visited.
-//     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-//   }
-// ]
-
-// const router = new VueRouter({
-//   routes
-// })
-
-// export default router
-
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import VueRouter, { RouteConfig } from 'vue-router'
 
 import FullScreen from '@/layout/fullScreen/index.vue'
 import AdminLayout from '@/layout/admin/index.vue'
-// import Index from '@views/Index.vue'
-// import Dashboard from '@/views/Dashboard.vue'
-
-// import MultipleIndex from '@/views/multiple/index.vue'
 
 Vue.use(VueRouter)
 
-export const layoutRoutes = [
+export const layoutRoutes: Array<RouteConfig> = [
   {
     name: 'Dashboard',
     path: '/dashboard',
-    component: () => import('@/views/Dashboard.vue'),
+    component: () => import(/* webpackChunkName: "dashborad" */ '@/views/Dashboard.vue'),
     meta: {
       icon: 'mdi-palette',
       text: 'Dashboard',
@@ -58,17 +26,18 @@ export const layoutRoutes = [
       text: 'Charts',
       tagView: true
     },
-    component: () => import('@/views/Charts.vue')
+    component: () => import(/* webpackChunkName: "charts" */ '@/views/Charts.vue')
   },
   {
     name: 'Multiple Menu',
-    path: 'multiple',
+    path: '/multiple',
+    redirect: '/multiple/second-menu',
     meta: {
       icon: 'mdi-menu',
       text: 'Multiple Menu',
       tagView: true
     },
-    component: () => import('@/views/multiple/index.vue'),
+    component: () => import(/* webpackChunkName: "multiple" */ '@/views/multiple/index.vue'),
     children: [
       {
         name: 'SecondMenu',
@@ -77,7 +46,7 @@ export const layoutRoutes = [
           text: 'SecondMenu',
           tagView: true
         },
-        component: () => import('@/views/multiple/SecondMenu.vue')
+        component: () => import(/* webpackChunkName: "second-menu" */ '@/views/multiple/SecondMenu.vue')
       },
       {
         name: 'ThirdMenu',
@@ -86,13 +55,23 @@ export const layoutRoutes = [
           text: 'ThirdMenu',
           tagView: true
         },
-        component: () => import('@/views/multiple/ThirdMenu.vue')
+        component: () => import(/* webpackChunkName: "third-menu" */ '@/views/multiple/ThirdMenu.vue')
       }
     ]
   }
 ]
 
-const routes = [
+const routes: Array<RouteConfig> = [
+  {
+    path: '/redirect',
+    component: AdminLayout,
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import(/* webpackChunkName: "redirect" */ '@/views/redirect.vue')
+      }
+    ]
+  },
   {
     path: '/login',
     component: FullScreen

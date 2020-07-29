@@ -8,6 +8,7 @@ export interface ITagView extends Partial<Route> {
 
 export interface ITagsViewState {
   visitedViews: ITagView[]
+  cachedViews: (string | undefined)[]
 }
 
 @Module({ dynamic: true, store, name: 'tagsView' })
@@ -51,6 +52,26 @@ class TagsView extends VuexModule implements ITagsViewState {
     index > -1 && this.cachedViews.splice(index, 1)
   }
 
+  @Mutation
+  private DEL_ALL_VISITED_VIEW () {
+    this.visitedViews = this.visitedViews.filter(view => view.meta.affix)
+  }
+
+  @Mutation
+  private DEL_ALL_CACHED_VIEW () {
+    this.cachedViews = this.visitedViews.map(v => v.name || '')
+  }
+
+  @Mutation
+  private DEL_OTHER_VISITED_VIEW (view: ITagView) {
+    this.visitedViews = this.visitedViews.filter(v => v.meta.affix || v.path === view.path)
+  }
+
+  @Mutation
+  private DEL_OTHER_CACHED_VIEW () {
+    this.cachedViews = this.visitedViews.map(v => v.name || '')
+  }
+
   @Action
   public addView (view: ITagView) {
     this.ADD_VISITED_VIEW(view)
@@ -66,6 +87,23 @@ class TagsView extends VuexModule implements ITagsViewState {
   public delView (view: ITagView) {
     this.DEL_VISITED_VIEW(view)
     this.DEL_CACHED_VIEW(view)
+  }
+
+  @Action
+  public delCachedView (view: ITagView) {
+    this.DEL_CACHED_VIEW(view)
+  }
+
+  @Action
+  public delAllView () {
+    this.DEL_ALL_VISITED_VIEW()
+    this.DEL_ALL_CACHED_VIEW()
+  }
+
+  @Action
+  public delOtherView (view: ITagView) {
+    this.DEL_OTHER_VISITED_VIEW(view)
+    this.DEL_OTHER_CACHED_VIEW()
   }
 }
 

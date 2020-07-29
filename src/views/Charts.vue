@@ -1,9 +1,17 @@
 <template>
-  <div>charts</div>
+  <div>
+    charts
+    <input type="text">
+  </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component({
+  name: 'Charts'
+})
+export default class extends Vue {
 
 }
 </script>

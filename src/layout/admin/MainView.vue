@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <tag-view></tag-view>
+    <!-- <tag-view></tag-view> -->
     <keep-alive :include="cachedViews">
       <router-view :key="key" />
     </keep-alive>

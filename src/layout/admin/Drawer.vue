@@ -87,8 +87,11 @@ export default class extends Vue {
     }
   ]
 
-  ceated () {
-    console.log(layoutRoutes)
+  created () {
+    const drawers = layoutRoutes.map(route => {
+      return route.meta
+    })
+    console.log(drawers)
   }
 
   get drawer () {

@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Dashboard</h1>
-    <input type="text">
   </div>
 </template>
 

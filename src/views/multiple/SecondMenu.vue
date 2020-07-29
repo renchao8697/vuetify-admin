@@ -1,5 +1,8 @@
 <template>
-  <h3>second menu</h3>
+  <div>
+    <h3>second menu</h3>
+    <input type="text">
+  </div>
 </template>
 
 <script>

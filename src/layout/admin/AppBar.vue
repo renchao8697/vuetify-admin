@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dense flat class="white">
+  <v-app-bar app flat elevation="4"  extension-height="32" hide-on-scroll class="white">
     <v-btn class="mr-3" elevation="1" fab small @click="setNav({drawer: !drawer, miniVariant: !miniVariant})">
       <v-icon>mdi-dots-vertical</v-icon>
     </v-btn>
@@ -113,16 +113,22 @@
         </v-list-item>
       </v-list>
     </v-menu>
-
+    <template v-slot:extension>
+      <tag-view />
+    </template>
   </v-app-bar>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import TagView from './TagView.vue'
 import SettingsModule from '@/store/modules/settings'
 
 @Component({
-  name: 'AppBar'
+  name: 'AppBar',
+  components: {
+    TagView
+  }
 })
 export default class extends Vue {
   private notices = [
