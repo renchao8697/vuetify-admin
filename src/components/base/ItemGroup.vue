@@ -31,10 +31,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Item } from './ItemSubGroup.vue'
+import { IDrawerItem } from './Item.vue'
 
-interface GroupItem extends Item {
-  children: GroupItem[];
+interface IDrawerGroup extends IDrawerItem {
+  children: IDrawerGroup[];
 }
 
 @Component({
@@ -42,7 +42,7 @@ interface GroupItem extends Item {
   inheritAttrs: false
 })
 export default class extends Vue {
-  @Prop({ default: { group: '', text: '', children: [] } }) private item!: GroupItem
+  @Prop({ default: { group: '', text: '', children: [] } }) private item!: IDrawerGroup
   @Prop({ default: false }) private subGroup!: boolean
 
   get children () {
@@ -56,7 +56,7 @@ export default class extends Vue {
     return this.genGroup(this.item.children)
   }
 
-  private genGroup (children: GroupItem[]) {
+  private genGroup (children: IDrawerGroup[]) {
     return children.map(item => {
       const parent = item.group || this.item.group
       let group = `${parent}/${item.to}`

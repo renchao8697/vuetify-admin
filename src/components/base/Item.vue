@@ -15,6 +15,14 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
+export interface IDrawerItem {
+  text: string
+  icon?: string
+  to?: string
+  group?: string
+  children?: IDrawerItem[]
+}
+
 @Component({
   name: 'BaseItem',
   inheritAttrs: false
@@ -22,7 +30,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class extends Vue {
   @Prop({ default: '' }) private text!: string
   @Prop({ default: false }) private icon!: boolean | string
-  @Prop({ default: undefined }) private to!: string
+  @Prop({ default: '' }) private to!: string
 
   get path () {
     if (!this.to) return ''

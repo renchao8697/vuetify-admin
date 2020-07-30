@@ -49,13 +49,23 @@ export const layoutRoutes: Array<RouteConfig> = [
         component: () => import(/* webpackChunkName: "second-menu" */ '@/views/multiple/SecondMenu.vue')
       },
       {
-        name: 'ThirdMenu',
-        path: '/multiple/third-menu',
+        name: 'SecondMenu2',
+        path: '/multiple/second-menu',
         meta: {
-          text: 'ThirdMenu',
-          tagView: true
+          text: 'SecondMenu2'
         },
-        component: () => import(/* webpackChunkName: "third-menu" */ '@/views/multiple/ThirdMenu.vue')
+        component: () => import(/* webpackChunkName: "second-menu" */ '@/views/multiple/SecondMenu.vue'),
+        children: [
+          {
+            name: 'ThirdMenu',
+            path: '/multiple/third-menu',
+            meta: {
+              text: 'ThirdMenu',
+              tagView: true
+            },
+            component: () => import(/* webpackChunkName: "third-menu" */ '@/views/multiple/ThirdMenu.vue')
+          }
+        ]
       }
     ]
   }

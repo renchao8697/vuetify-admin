@@ -23,7 +23,7 @@
       nav
     >
 
-      <template v-for="(item, i) in items">
+      <template v-for="(item, i) in drawerItems">
         <base-item-group
           v-if="item.group"
           :key="`group-${i}`"
@@ -45,53 +45,37 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { RouteConfig } from 'vue-router'
 import SettingsModule from '@/store/modules/settings'
 import { layoutRoutes } from '@/router'
+import { IDrawerItem } from '@/components/base/Item.vue'
 
 @Component({
   name: 'Drawer'
 })
 export default class extends Vue {
   private text = 'VV-Admin'
-  private items = [
-    {
-      icon: 'mdi-palette',
-      text: 'Dashboard',
-      to: 'dashboard'
-    },
-    {
-      icon: 'mdi-chart-timeline-variant',
-      text: 'Charts',
-      to: 'charts'
-    },
-    {
-      icon: 'mdi-menu',
-      text: '多级菜单',
-      group: 'multiple',
-      children: [
-        {
-          text: '二级菜单1',
-          to: 'second-menu'
-        },
-        {
-          text: '二级菜单2',
-          group: 'multiple',
-          children: [
-            {
-              text: '三级菜单',
-              to: 'third-menu'
-            }
-          ]
-        }
-      ]
-    }
-  ]
 
-  created () {
-    const drawers = layoutRoutes.map(route => {
-      return route.meta
+  get drawerItems () {
+    return this.setDrawers(layoutRoutes)
+  }
+
+  private setDrawers (routes: RouteConfig[]): IDrawerItem[] {
+    return routes.map(route => {
+      let drawerItem: IDrawerItem
+      if (route.children) {
+        drawerItem = route.meta
+        drawerItem.group = route.path.split('/')[1]
+        drawerItem.children = this.setDrawers(route.children)
+        return drawerItem
+      } else {
+        drawerItem = route.meta
+        const pathArr = route.path.split('/')
+        // drawerItem.to = pathArr.length > 3 ? pathArr.slice(2).join('/') : pathArr[pathArr.length - 1]
+        drawerItem.to = pathArr[pathArr.length - 1]
+        return drawerItem
+      }
     })
-    console.log(drawers)
   }
 
   get drawer () {

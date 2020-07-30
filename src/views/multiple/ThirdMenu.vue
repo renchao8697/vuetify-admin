@@ -1,7 +1,6 @@
 <template>
   <div>
     <h3>third menu</h3>
-    <input type="text">
   </div>
 </template>
 

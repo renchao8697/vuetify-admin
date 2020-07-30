@@ -7,19 +7,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-
-export interface Item {
-  to: string;
-  text: string;
-  icon?: string | boolean;
-  group?: string;
-}
+import { IDrawerItem } from './Item.vue'
 
 @Component({
   name: 'BaseItemSubGroup'
 })
 export default class extends Vue {
-  @Prop({ default: { text: '', icon: false } }) private item!: Item
+  @Prop({ default: { text: '', icon: false } }) private item!: IDrawerItem
 }
 </script>
 

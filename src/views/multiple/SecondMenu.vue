@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>second menu</h3>
-    <input type="text">
+    <router-view></router-view>
   </div>
 </template>
 
